@@ -50,10 +50,9 @@ function renderNavbar() {
 
         if (li.id.toLowerCase() === "newlink") {
             li.addEventListener("click", function () {
-                window.scrollBy({
+                filterFeatureSection.scrollIntoView({
                     behavior: "smooth",
-                    top: document.documentElement.clientHeight,
-                    left: 0,
+                    block: "center",
                 });
             });
         }
@@ -246,6 +245,7 @@ renderFilterSection();
 renderFeaturesSection();
 
 filterFeatureSection.append(filters, features);
+root.append(navbar, hero, filterFeatureSection);
 
 async function renderCarsGrid() {
     gridContainer.innerHTML = "";
@@ -294,6 +294,4 @@ async function renderCarsGrid() {
     }
 }
 
-renderCarsGrid();
-
-root.append(navbar, hero, filterFeatureSection, gridContainer);
+renderCarsGrid().then(() => root.append(gridContainer));
