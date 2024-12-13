@@ -20,6 +20,10 @@ const features = document.createElement("div");
 features.setAttribute("class", "feature-section");
 features.setAttribute("id", "featureSection");
 
+const gridContainer = document.createElement("div");
+gridContainer.setAttribute("id", "carsGrid");
+gridContainer.setAttribute("class", "cars-grid");
+
 function renderNavbar() {
     const logo = document.createElement("div");
     logo.className = "logo";
@@ -43,6 +47,16 @@ function renderNavbar() {
         li.id = item.id;
         li.textContent = item.text;
         menu.appendChild(li);
+
+        if (li.id.toLowerCase() === "newlink") {
+            li.addEventListener("click", function () {
+                window.scrollBy({
+                    behavior: "smooth",
+                    top: document.documentElement.clientHeight,
+                    left: 0,
+                });
+            });
+        }
     });
 
     navbar.append(logo, menu);
@@ -55,6 +69,7 @@ function renderHeroSection() {
 
     const mainHeading = document.createElement("h1");
     mainHeading.id = "mainHeading";
+    mainHeading.textContent = "GET YOUR ";
 
     const dreamCar = document.createElement("span");
     dreamCar.className = "highlight";
@@ -66,7 +81,9 @@ function renderHeroSection() {
     dreamPrice.id = "dreamPrice";
     dreamPrice.textContent = "DREAM PRICE";
 
-    mainHeading.innerHTML = `GET YOUR ${dreamCar} AT A ${dreamPrice}`;
+    mainHeading.appendChild(dreamCar);
+    mainHeading.appendChild(document.createTextNode(" AT A "));
+    mainHeading.appendChild(dreamPrice);
 
     const subHeading = document.createElement("h2");
     subHeading.id = "subHeading";
@@ -229,4 +246,54 @@ renderFilterSection();
 renderFeaturesSection();
 
 filterFeatureSection.append(filters, features);
-root.append(navbar, hero, filterFeatureSection);
+
+async function renderCarsGrid() {
+    gridContainer.innerHTML = "";
+
+    try {
+        const response = await fetch("https://www.freetestapi.com/api/v1/cars");
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data: ${response.status}`);
+        }
+        const carsData = await response.json();
+
+        carsData.forEach((car) => {
+            const gridItem = document.createElement("div");
+            gridItem.className = "car-card";
+
+            const carImage = document.createElement("img");
+            carImage.src = car.image;
+            carImage.alt = car.model || "Car Image";
+            carImage.className = "car-image";
+
+            const carName = document.createElement("h3");
+            carName.className = "car-name";
+            carName.textContent = car.make;
+
+            const carModel = document.createElement("p");
+            carModel.className = "car-model";
+            carModel.textContent = `Model: ${car.model}`;
+
+            const carPrice = document.createElement("p");
+            carPrice.className = "car-price";
+            carPrice.textContent = `Price: ${car.price}`;
+
+            gridItem.appendChild(carImage);
+            gridItem.appendChild(carName);
+            gridItem.appendChild(carModel);
+            gridItem.appendChild(carPrice);
+
+            gridContainer.appendChild(gridItem);
+        });
+    } catch (error) {
+        const errorMessage = document.createElement("p");
+        errorMessage.className = "error-message";
+        errorMessage.textContent =
+            "Failed to load car data. Please try again later.";
+        gridContainer.appendChild(errorMessage);
+    }
+}
+
+renderCarsGrid();
+
+root.append(navbar, hero, filterFeatureSection, gridContainer);
