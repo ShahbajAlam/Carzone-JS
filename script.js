@@ -20,141 +20,213 @@ const features = document.createElement("div");
 features.setAttribute("class", "feature-section");
 features.setAttribute("id", "featureSection");
 
-navbar.innerHTML =
-    `
-        <div class="logo" id="logo">Carzone</div>
-        <ul class="menu" id="menu">
-            <li id="homeLink">Home</li>
-            <li id="serviceLink">Service</li>
-            <li id="featuredLink">Featured Cars</li>
-            <li id="newLink">New Cars</li>
-            <li id="contactLink">Contact</li>
-        </ul>
-    `;
+function renderNavbar() {
+    const logo = document.createElement("div");
+    logo.className = "logo";
+    logo.id = "logo";
+    logo.textContent = "Carzone";
 
-hero.innerHTML =
-    `
-        <div class="hero-content" id="heroContent">
-            <h1 id="mainHeading">
-                GET YOUR
-                <span class="highlight" id="dreamCar">DREAM CAR</span> AT A
-                <span class="highlight" id="dreamPrice">DREAM PRICE</span>
-            </h1>
-            <h2 id="subHeading">
-                The largest inventory of cars in Northern India
-            </h2>
-            <button class="contact-btn" id="contactButton">
-                Contact Us
-            </button>
-        </div>
-    `;
+    const menu = document.createElement("ul");
+    menu.className = "menu";
+    menu.id = "menu";
 
-filters.innerHTML =
-    `
-        <div class="filter-section" id="filterSection">
-            <div class="filter-table">
-                <div class="filter-row">
-                    <div class="filter-item">
-                        <label for="year" id="yearLabel"
-                        >Select Year</label
-                        >
-                        <select id="year">
-                            <option>Year</option>
-                            {/* <!-- Add year options here --> */}
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label for="make" id="makeLabel"
-                        >Select Make</label
-                        >
-                        <select id="make">
-                            <option>Make</option>
-                            {/* <!-- Add make options here --> */}
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label for="model" id="modelLabel"
-                        >Select Model</label
-                        >
-                        <select id="model">
-                            <option>Model</option>
-                            {/* <!-- Add model options here --> */}
-                        </select>
-                    </div>
-                </div>
-                <div class="filter-row">
-                    <div class="filter-item">
-                        <label for="style" id="styleLabel"
-                        >Body Style</label
-                        >
-                        <select id="style">
-                            <option>Style</option>
-                            {/* <!-- Add style options here --> */}
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label for="condition" id="conditionLabel"
-                        >Car Condition</label
-                        >
-                        <select id="condition">
-                            <option>Condition</option>
-                            {/* <!-- Add condition options here --> */}
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label for="price" id="priceLabel"
-                        >Select Price</label
-                        >
-                        <select id="price">
-                            <option>Price</option>
-                            {/* <!-- Add price options here --> */}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button class="search-btn" id="searchButton">Search</button>
-        </div>
-    `;
+    const menuItems = [
+        { id: "homeLink", text: "Home" },
+        { id: "serviceLink", text: "Service" },
+        { id: "featuredLink", text: "Featured Cars" },
+        { id: "newLink", text: "New Cars" },
+        { id: "contactLink", text: "Contact" },
+    ];
 
-features.innerHTML =
-    `
-        <div class="service-card">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/2211/2211425.png"
-                alt="Car Icon"
-                class="service-icon"
-            />
-            <h3 class="service-title">Largest Dealership</h3>
-            <p class="service-description">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                aut odit aut den fugit sed quia.
-            </p>
-        </div>
-        <div class="service-card">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/18497/18497231.png"
-                alt="Warranty Icon"
-                class="service-icon"
-            />
-            <h3 class="service-title">Unlimited Warranty</h3>
-            <p class="service-description">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                aut odit aut den fugit sed quia.
-            </p>
-        </div>
-        <div class="service-card">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/1456/1456840.png"
-                alt="Insurance Icon"
-                class="service-icon"
-            />
-            <h3 class="service-title">Insurance Support</h3>
-            <p class="service-description">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur
-                aut odit aut den fugit sed quia.
-            </p>
-        </div>
-    `;
+    menuItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.id = item.id;
+        li.textContent = item.text;
+        menu.appendChild(li);
+    });
+
+    navbar.append(logo, menu);
+}
+
+function renderHeroSection() {
+    const heroContent = document.createElement("div");
+    heroContent.className = "hero-content";
+    heroContent.id = "heroContent";
+
+    const mainHeading = document.createElement("h1");
+    mainHeading.id = "mainHeading";
+
+    const dreamCar = document.createElement("span");
+    dreamCar.className = "highlight";
+    dreamCar.id = "dreamCar";
+    dreamCar.textContent = "DREAM CAR";
+
+    const dreamPrice = document.createElement("span");
+    dreamPrice.className = "highlight";
+    dreamPrice.id = "dreamPrice";
+    dreamPrice.textContent = "DREAM PRICE";
+
+    mainHeading.innerHTML = `GET YOUR ${dreamCar} AT A ${dreamPrice}`;
+
+    const subHeading = document.createElement("h2");
+    subHeading.id = "subHeading";
+    subHeading.textContent = "The largest inventory of cars in Northern India";
+
+    const contactButton = document.createElement("button");
+    contactButton.className = "contact-btn";
+    contactButton.id = "contactButton";
+    contactButton.textContent = "Contact Us";
+
+    heroContent.append(mainHeading, subHeading, contactButton);
+
+    hero.appendChild(heroContent);
+}
+
+function renderFilterSection() {
+    const filterSection = document.createElement("div");
+    filterSection.className = "filter-section";
+    filterSection.id = "filterSection";
+
+    const filterTable = document.createElement("div");
+    filterTable.className = "filter-table";
+
+    const filterRows = [
+        [
+            {
+                labelFor: "year",
+                labelText: "Select Year",
+                selectId: "year",
+                defaultOption: "Year",
+            },
+            {
+                labelFor: "make",
+                labelText: "Select Make",
+                selectId: "make",
+                defaultOption: "Make",
+            },
+            {
+                labelFor: "model",
+                labelText: "Select Model",
+                selectId: "model",
+                defaultOption: "Model",
+            },
+        ],
+        [
+            {
+                labelFor: "style",
+                labelText: "Body Style",
+                selectId: "style",
+                defaultOption: "Style",
+            },
+            {
+                labelFor: "condition",
+                labelText: "Car Condition",
+                selectId: "condition",
+                defaultOption: "Condition",
+            },
+            {
+                labelFor: "price",
+                labelText: "Select Price",
+                selectId: "price",
+                defaultOption: "Price",
+            },
+        ],
+    ];
+
+    filterRows.forEach((row) => {
+        const filterRow = document.createElement("div");
+        filterRow.className = "filter-row";
+
+        row.forEach((item) => {
+            const filterItem = document.createElement("div");
+            filterItem.className = "filter-item";
+
+            const label = document.createElement("label");
+            label.setAttribute("for", item.labelFor);
+            label.id = `${item.labelFor}Label`;
+            label.textContent = item.labelText;
+
+            const select = document.createElement("select");
+            select.id = item.selectId;
+
+            const defaultOption = document.createElement("option");
+            defaultOption.textContent = item.defaultOption;
+
+            select.appendChild(defaultOption);
+
+            filterItem.appendChild(label);
+            filterItem.appendChild(select);
+            filterRow.appendChild(filterItem);
+        });
+
+        filterTable.appendChild(filterRow);
+    });
+
+    const searchButton = document.createElement("button");
+    searchButton.className = "search-btn";
+    searchButton.id = "searchButton";
+    searchButton.textContent = "Search";
+
+    filterSection.appendChild(filterTable);
+    filterSection.appendChild(searchButton);
+
+    filters.appendChild(filterSection);
+}
+
+function renderFeaturesSection() {
+    const featureCards = [
+        {
+            imgSrc: "https://cdn-icons-png.flaticon.com/512/2211/2211425.png",
+            imgAlt: "Car Icon",
+            title: "Largest Dealership",
+            description:
+                "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.",
+        },
+        {
+            imgSrc: "https://cdn-icons-png.flaticon.com/512/18497/18497231.png",
+            imgAlt: "Warranty Icon",
+            title: "Unlimited Warranty",
+            description:
+                "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.",
+        },
+        {
+            imgSrc: "https://cdn-icons-png.flaticon.com/512/1456/1456840.png",
+            imgAlt: "Insurance Icon",
+            title: "Insurance Support",
+            description:
+                "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.",
+        },
+    ];
+
+    featureCards.forEach((card) => {
+        const serviceCard = document.createElement("div");
+        serviceCard.className = "service-card";
+
+        const img = document.createElement("img");
+        img.src = card.imgSrc;
+        img.alt = card.imgAlt;
+        img.className = "service-icon";
+
+        const title = document.createElement("h3");
+        title.className = "service-title";
+        title.textContent = card.title;
+
+        const description = document.createElement("p");
+        description.className = "service-description";
+        description.textContent = card.description;
+
+        serviceCard.appendChild(img);
+        serviceCard.appendChild(title);
+        serviceCard.appendChild(description);
+
+        features.appendChild(serviceCard);
+    });
+}
+
+renderNavbar();
+renderHeroSection();
+renderFilterSection();
+renderFeaturesSection();
 
 filterFeatureSection.append(filters, features);
 root.append(navbar, hero, filterFeatureSection);
