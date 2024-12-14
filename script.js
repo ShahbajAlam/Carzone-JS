@@ -294,4 +294,5 @@ async function renderCarsGrid() {
     }
 }
 
-renderCarsGrid().then(() => root.append(gridContainer));
+renderCarsGrid();
+root.append(gridContainer);
