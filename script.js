@@ -248,7 +248,7 @@ filterFeatureSection.append(filters, features);
 root.append(navbar, hero, filterFeatureSection);
 
 async function renderCarsGrid() {
-    gridContainer.innerHTML = "";
+    gridContainer.replaceChildren();
 
     try {
         const response = await fetch("https://www.freetestapi.com/api/v1/cars");
